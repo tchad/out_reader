@@ -10,7 +10,6 @@
 namespace reader {
 
     class DatasetAbstract {
-
         public:
 
             virtual ~DatasetAbstract() = default;
@@ -22,15 +21,14 @@ namespace reader {
             DatasetVersion Version() const noexcept;
 
         protected:
-            DatasetAbstract(std::uint16_t id,
-                            const std::string &filepath,
+            DatasetAbstract(const std::string &filepath,
                             const std::string &name,
                             const std::string &desc,
                             DatasetVersion version);
             
             
             //Members
-            std::uint16_t id;
+            std::uint16_t id = 0;
             std::string filepath;
             std::string name;
             std::string desc;
@@ -44,6 +42,9 @@ namespace reader {
 
             DatasetAbstract& operator = ( const DatasetAbstract &) = delete;
             DatasetAbstract& operator = ( const DatasetAbstract &&) = delete;
+
+
+        friend class Storage;
     };
 
 

@@ -27,9 +27,10 @@ namespace reader {
             void Add(DatasetAbstract *p) noexcept;
             bool Remove(std::uint16_t id) noexcept;
 
-            std::uint16_t NextId() noexcept;
 
         private:
+            std::uint16_t NextId() noexcept;
+
             std::forward_list<DatasetAbstractSharedPtr> db;
             std::uint16_t id = 0;
             std::uint32_t current_sz = 0;

@@ -15,9 +15,9 @@ namespace reader {
             Reader() = default;
             ~Reader() = default;
 
-            void LoadFile(const std::string &filepath,
-                          const std::string &name,
-                          const std::string &desc);
+            ParserStatus LoadFile(const std::string &filepath,
+                                  const std::string &name,
+                                  const std::string &desc);
 
             Storage& GetStorage() noexcept;
         private:

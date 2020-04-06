@@ -80,7 +80,15 @@ bool GuiMain::processId(const QString& id, std::uint16_t &num_id)
 
 void GuiMain::setOpen(QString path, QString name, QString desc)
 {
-    mReader.LoadFile(path.toStdString(), name.toStdString(), desc.toStdString());
+    reader::ParserStatus status;
+    status = mReader.LoadFile(path.toStdString(), name.toStdString(), desc.toStdString());
+    switch(status) {
+        case reader::ParserStatus::SUCCESS:
+            QMessageBox::information(mMainWnd, "Dataset load", "Loaded");
+            break;
+        default:
+            QMessageBox::critical(mMainWnd, "Dataset load", "Error");
+    }
     refreshModel();
 }
 

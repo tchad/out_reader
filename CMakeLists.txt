@@ -25,6 +25,7 @@ add_executable(reader
     src/parser/dataset_null.cpp
     src/parser/storage.cpp
     src/parser/reader.cpp
+    src/parser/parser.cpp
     src/main.cpp
 )
 

@@ -10,8 +10,7 @@ namespace reader {
     class DatasetNull : public DatasetAbstract {
 
         public:
-            DatasetNull(std::uint16_t id,
-                        const std::string &filepath,
+            DatasetNull(const std::string &filepath,
                         const std::string &name,
                         const std::string &desc);
 

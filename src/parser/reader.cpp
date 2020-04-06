@@ -1,15 +1,22 @@
 
 #include <parser/include/reader.h>
-#include <parser/include/dataset_null.h>
+#include <parser/include/parser.h>
 
 namespace reader {
-    void Reader::LoadFile(const std::string &filepath,
-                          const std::string &name,
-                          const std::string &desc)
+    ParserStatus Reader::LoadFile(const std::string &filepath,
+                                  const std::string &name,
+                                  const std::string &desc)
     {
-        //Initial Test version
-        auto ptr = new DatasetNull(storage.NextId(), filepath, name, desc);
-        storage.Add(ptr);
+        ParserStatus status;
+        DatasetAbstract *ptr;
+
+        ptr = Parser::Load(status, filepath, name, desc);
+
+        if(status == ParserStatus::SUCCESS) {
+            storage.Add(ptr);
+        }
+
+        return status;
     }
 }
 

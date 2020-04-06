@@ -9,7 +9,7 @@ namespace reader {
         VER5_3
     };
 
-    enum DatasetParseStatus {
+    enum ParserStatus {
         SUCCESS,
         ERR_FILE_MISSING,
         ERR_UNSUPPORTED_VERSION,

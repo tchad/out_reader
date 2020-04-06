@@ -42,6 +42,7 @@ namespace reader {
     {
         //Silent on duplicates
         if (!Contains(p->Id())) {
+            p->id = NextId();
             db.push_front(DatasetAbstractSharedPtr(p));
 
             current_sz++;
