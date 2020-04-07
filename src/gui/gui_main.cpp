@@ -86,8 +86,18 @@ void GuiMain::setOpen(QString path, QString name, QString desc)
         case reader::ParserStatus::SUCCESS:
             QMessageBox::information(mMainWnd, "Dataset load", "Loaded");
             break;
-        default:
-            QMessageBox::critical(mMainWnd, "Dataset load", "Error");
+        case reader::ParserStatus::ERR_FILE_MISSING:
+            QMessageBox::critical(mMainWnd, "Dataset load", "Could not open the file.");
+            break;
+        case reader::ParserStatus::ERR_UNSUPPORTED_VERSION:
+            QMessageBox::critical(mMainWnd, "Dataset load", "Unsupperted version of the dataset.");
+            break;
+        case reader::ParserStatus::ERR_WRONG_FILE_CONTENT:
+            QMessageBox::critical(mMainWnd, "Dataset load", "Unrecognized content of the file.");
+            break;
+        case reader::ParserStatus::ERR_UNKNOWN:
+            QMessageBox::critical(mMainWnd, "Dataset load", "Unknown Error");
+            break;
     }
     refreshModel();
 }

@@ -1,4 +1,6 @@
+#include <cstdlib>
 #include <iostream>
+#include <exception>
 
 #include <QtWidgets/QApplication>
 
@@ -8,27 +10,27 @@
 
 int main(int argc, char *argv[]) 
 {
-    int ret = 0;
+    int ret = EXIT_SUCCESS;
 
     try {
 
         reader::Reader reader;
-        reader.LoadFile("a1", "b1", "v1");
-        reader.LoadFile("a2", "b2", "v2");
-        reader.LoadFile("a3", "b3", "v3");
-        reader.LoadFile("a4", "b4", "v4");
-
         QApplication app(argc, argv);
-
         GuiMain gui(reader);
+
         gui.show();
 
         ret = app.exec();
     }
+    catch(std::exception &e)
+    {
+        std::cerr << e.what() << std::endl;
+        exit(EXIT_FAILURE);
+    }
     catch(...) 
     {
         std::cerr << "Unexpected exception\n";
-        ret = -1;
+        exit(EXIT_FAILURE);
     }
 
     return ret;

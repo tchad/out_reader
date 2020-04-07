@@ -33,8 +33,8 @@ void MainWindow::setDatasetList(const QStringList &lst)
 void MainWindow::actionFileOpen()
 {
     if( mOutLoadDialog->exec() == QDialog::Accepted ) {
-        emit setOpen(mOutLoadDialog->datasetName(),
-                    mOutLoadDialog->datasetPath(),
-                    mOutLoadDialog->datasetDesc());
+        emit setOpen(mOutLoadDialog->datasetPath(),
+                     mOutLoadDialog->datasetName(),
+                     mOutLoadDialog->datasetDesc());
     }
 }
