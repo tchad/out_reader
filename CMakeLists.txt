@@ -23,9 +23,11 @@ add_executable(reader
     src/gui/gui_main.cpp
     src/parser/dataset_abstract.cpp
     src/parser/dataset_null.cpp
+    src/parser/dataset_v5_3.cpp
     src/parser/storage.cpp
     src/parser/reader.cpp
     src/parser/parser.cpp
+    src/parser/parser_engine_v5_3.cpp
     src/main.cpp
 )
 

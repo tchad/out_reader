@@ -5,6 +5,8 @@
 
 #include <parser/include/parser.h>
 #include <parser/include/dataset_null.h>
+#include <parser/include/dataset_v5_3.h>
+#include <parser/include/parser_engine_v5_3.h>
 
 namespace reader {
 
@@ -37,9 +39,9 @@ namespace reader {
             if (found) {
                 if (ver_str == "5.3") {
                     file.seekg(0);
-                    //Go back to the beginning of the file before passing to the engine
-                    status = ParserStatus::SUCCESS;
-                    return new DatasetNull(filepath, name, desc);
+                    DatasetV53 *ptr = new DatasetV53(filepath, name, desc);
+                    status = ParserEngineV53::Parse(file, ptr);
+                    return ptr;
                 }
                 else {
                     status = ParserStatus::ERR_UNSUPPORTED_VERSION;

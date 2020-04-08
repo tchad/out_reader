@@ -69,10 +69,12 @@ bool GuiMain::processId(const QString& id, std::uint16_t &num_id)
         }
         else {
             QMessageBox::critical(mMainWnd, "Error", "Id does not exist in the storage.");
+            ok = false;
         }
     }
     else {
         QMessageBox::critical(mMainWnd, "Error", "Id must be integer dreater or equal to 1.");
+        ok = false;
     }
 
     return ok;
@@ -114,8 +116,10 @@ void GuiMain::setDelete(QString id)
 {
     std::uint16_t num_id;
     if (processId(id, num_id)) {
-        mReader.GetStorage().Remove(num_id);
-        refreshModel();
+        if(QMessageBox::question(mMainWnd, "Delete", QString("Delete dataset ") + id) == QMessageBox::Yes) {
+            mReader.GetStorage().Remove(num_id);
+            refreshModel();
+        }
     }
 }
 

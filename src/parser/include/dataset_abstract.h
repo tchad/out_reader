@@ -28,7 +28,7 @@ namespace reader {
             
             
             //Members
-            std::uint16_t id = 0;
+            std::uint16_t id = 0; //Set by the storage
             std::string filepath;
             std::string name;
             std::string desc;
