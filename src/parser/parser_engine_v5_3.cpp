@@ -50,6 +50,12 @@ namespace reader {
                     cnt++;
                 }
             }
+            else if (line.empty()) {
+                std::clog << "\tfound empty line\n";
+            }
+            else {
+                std::clog << "\tunknown line: (" << line << ")\n";
+            }
         }
 
         return ParserStatus::SUCCESS;
@@ -83,9 +89,8 @@ namespace reader {
     const std::regex ParserEngineV53::REGEX_VAR_INDEXED = std::regex(
             //"^([0-9]+)[ ]+(.+)",
             //Second element captures scientific notation
-            "^([0-9]+)[ ]+(-{0,1}[0-9]+\\.{0,1}[0-9]*e{0,1}-{0,1}[0-9]*)",
+            "^([0-9]+)[ ]+(-{0,1}[0-9]+\\.{0,1}[0-9]*e{0,1}[-|+]{0,1}[0-9]*)",
             //"^([0-9]+)[ ]+([0-9\\.\\-e]+)",
             std::regex::extended);
-
 }
 
