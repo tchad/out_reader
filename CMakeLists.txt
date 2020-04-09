@@ -31,7 +31,10 @@ add_executable(reader
     src/main.cpp
 )
 
+add_library(qwt SHARED IMPORTED)
+set_property(TARGET qwt PROPERTY IMPORTED_LOCATION $ENV{QWT_LIB}/libqwt.so)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -std=c++2a")
-target_link_libraries(reader Qt5::Widgets)
-target_include_directories(reader PUBLIC src )
+target_link_libraries(reader qwt Qt5::Widgets)
+target_include_directories(reader PUBLIC src $ENV{QWT_INC})
 
