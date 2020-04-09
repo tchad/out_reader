@@ -31,7 +31,7 @@ add_executable(reader
     src/main.cpp
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -std=c++2a")
 target_link_libraries(reader Qt5::Widgets)
 target_include_directories(reader PUBLIC src )
 

@@ -14,9 +14,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::appQuit);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::actionFileOpen);
-    connect(ui->elementShowBtn, &QPushButton::clicked, [=](){
+    connect(ui->elementShowBtn, &QPushButton::clicked, [this](){
             emit setDisplay(ui->elementId->text());});
-    connect(ui->elementDeleteBtn, &QPushButton::clicked, [=](){
+    connect(ui->elementDeleteBtn, &QPushButton::clicked, [this](){
             emit setDelete(ui->elementId->text());});
 }
 

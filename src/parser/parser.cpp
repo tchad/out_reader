@@ -41,7 +41,14 @@ namespace reader {
                     file.seekg(0);
                     DatasetV53 *ptr = new DatasetV53(filepath, name, desc);
                     status = ParserEngineV53::Parse(file, ptr);
-                    return ptr;
+
+                    if(status != ParserStatus::SUCCESS) {
+                        delete ptr;
+                        return nullptr;
+                    }
+                    else {
+                        return ptr;
+                    }
                 }
                 else {
                     status = ParserStatus::ERR_UNSUPPORTED_VERSION;

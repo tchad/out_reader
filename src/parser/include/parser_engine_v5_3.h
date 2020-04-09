@@ -1,6 +1,8 @@
 #ifndef __READER_PARSER_ENGINE_V5_3__
 #define __READER_PARSER_ENGINE_V5_3__
 
+#define __READER_PARSER_ENGINE_V5_3_DEBUG__
+
 #include <fstream>
 #include <regex>
 #include <string>
@@ -10,7 +12,7 @@
 
 namespace reader {
 
-    class ParserEngineV53 {
+    class ParserEngineV53 final {
         public:
             static constexpr const char* ENGINE_NAME = "ENGINE V5.3 (PTPX)";
 
@@ -22,7 +24,22 @@ namespace reader {
             static const std::regex REGEX_VAR_INDEPENDENT;
             static const std::regex REGEX_VAR_INDEXED;
 
+            enum SegmentType {
+                EMPTY,
+                UNKNOWN,
+                VERSION,
+                COMMENT,
+                TIME_RESOLUTION,
+                HIER_SEPARATION,
+                INDEX,
+                VAR_INDEPENDENT,
+                VAR_INDEXED
+            };
+
             static ParserStatus Parse(std::ifstream &fs, DatasetV53 *dset);
+
+        private:
+            static SegmentType ParseLine(std::string line, std::smatch &match);
     };
 }
 
