@@ -18,6 +18,16 @@
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
+       <widget class="QwtKnob" name="Knob"/>
+      </item>
+      <item>
+       <widget class="QwtDial" name="Dial">
+        <property name="lineWidth">
+         <number>4</number>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QwtAnalogClock" name="AnalogClock">
         <property name="lineWidth">
          <number>4</number>
@@ -25,10 +35,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QwtKnob" name="Knob"/>
-      </item>
-      <item>
-       <widget class="QwtDial" name="Dial">
+       <widget class="QwtCompass" name="Compass">
         <property name="lineWidth">
          <number>4</number>
         </property>
@@ -40,7 +47,7 @@
      <widget class="QwtPlot" name="qwtPlot"/>
     </item>
     <item>
-     <widget class="QwtScaleWidget" name="ScaleWidget"/>
+     <widget class="QwtThermo" name="Thermo"/>
     </item>
    </layout>
   </widget>
@@ -75,14 +82,14 @@
    <header>qwt_plot.h</header>
   </customwidget>
   <customwidget>
-   <class>QwtScaleWidget</class>
-   <extends>QWidget</extends>
-   <header>qwt_scale_widget.h</header>
-  </customwidget>
-  <customwidget>
    <class>QwtAnalogClock</class>
    <extends>QwtDial</extends>
    <header>qwt_analog_clock.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtCompass</class>
+   <extends>QwtDial</extends>
+   <header>qwt_compass.h</header>
   </customwidget>
   <customwidget>
    <class>QwtDial</class>
@@ -93,6 +100,11 @@
    <class>QwtKnob</class>
    <extends>QWidget</extends>
    <header>qwt_knob.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QwtThermo</class>
+   <extends>QWidget</extends>
+   <header>qwt_thermo.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

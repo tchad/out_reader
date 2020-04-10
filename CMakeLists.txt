@@ -13,6 +13,9 @@ endif()
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_executable(reader
+    src/gui/plot_wnd.ui
+    src/gui/include/plot_wnd.h
+    src/gui/plot_wnd.cpp
     src/gui/out_load_dialog.ui 
     src/gui/include/out_load_dialog.h
     src/gui/out_load_dialog.cpp
@@ -21,6 +24,7 @@ add_executable(reader
     src/gui/main_window.cpp
     src/gui/include/gui_main.h
     src/gui/gui_main.cpp
+
     src/parser/dataset_abstract.cpp
     src/parser/dataset_null.cpp
     src/parser/dataset_v5_3.cpp
