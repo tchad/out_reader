@@ -1,7 +1,7 @@
 #ifndef __READER_PARSER_ENGINE_V5_3__
 #define __READER_PARSER_ENGINE_V5_3__
 
-#define __READER_PARSER_ENGINE_V5_3_DEBUG__
+//#define __READER_PARSER_ENGINE_V5_3_DEBUG__
 
 #include <fstream>
 #include <regex>

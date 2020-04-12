@@ -29,5 +29,22 @@ namespace reader {
 
         return false;
     }
+
+    DatasetAbstract::SimpleDPoint1DListSharedPtr DatasetV53::SimplePowerData()
+    {
+        auto lst = new DatasetAbstract::SimpleDPoint1DList;
+
+        for (auto re = data.rbegin(); re != data.rend(); re++) {
+            DatasetAbstract::SimpleDPoint1D p{re->t, re->d[DatasetV53::PWR_IDX]};
+            lst->push_front(p);
+        }
+
+        return DatasetAbstract::SimpleDPoint1DListSharedPtr(lst);
+    }
+ 
+    std::string DatasetV53::DataAnalysisReport()
+    {
+        return "SUP";
+    }
 }
 

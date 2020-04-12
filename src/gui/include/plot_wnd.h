@@ -4,7 +4,6 @@
 #include <cstdint>
 
 #include <QtWidgets/QMainWindow>
-
 #include <parser/include/dataset_abstract.h>
 
 namespace Ui {
@@ -25,6 +24,10 @@ class PlotWnd : public QMainWindow
         void sigClose(std::uint16_t id);
 
     private:
+        void setPlot();
+        void plotExport();
+        void printDARConsole();
+
         Ui::PlotWnd *ui;
         reader::DatasetAbstractSharedPtr ptrDataset;
 };

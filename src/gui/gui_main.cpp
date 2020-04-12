@@ -6,6 +6,7 @@
 
 #include <gui/include/gui_main.h>
 
+
 GuiMain::GuiMain(reader::Reader &reader, QObject *parent) :
     QObject(parent),
     mMainWnd(new MainWindow),
@@ -35,6 +36,11 @@ GuiMain::~GuiMain()
 void GuiMain::show()
 {
     mMainWnd->show();
+    //Test Mode
+#ifdef __READER_TEST_MODE__
+    setOpen("../res/power.out", "auto_tst", "tst");
+    setDisplay("1");
+#endif
 }
 
 void GuiMain::refreshModel()

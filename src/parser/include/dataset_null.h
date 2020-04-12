@@ -16,6 +16,9 @@ namespace reader {
 
             virtual ~DatasetNull() = default;
 
+        virtual DatasetAbstract::SimpleDPoint1DListSharedPtr SimplePowerData() override;
+        virtual std::string DataAnalysisReport() override;
+
         //Deleted implicit constructors and assignment operators
         public:
             DatasetNull( const DatasetNull &) = delete;

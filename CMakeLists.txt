@@ -36,6 +36,8 @@ add_executable(reader
 )
 
 add_library(qwt SHARED IMPORTED)
+add_compile_definitions(__READER_TEST_MODE__)
+#add_compile_definitions(__READER_PARSER_ENGINE_V5_3_DEBUG__)
 set_property(TARGET qwt PROPERTY IMPORTED_LOCATION $ENV{QWT_LIB}/libqwt.so)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -std=c++2a")

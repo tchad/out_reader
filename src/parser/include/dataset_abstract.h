@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdint>
 #include <memory>
+#include <forward_list>
 
 #include <parser/include/defs.h>
 
@@ -12,6 +13,14 @@ namespace reader {
     class DatasetAbstract {
         public:
 
+            struct SimpleDPoint1D {
+                std::uint32_t t;
+                double v;
+            };
+
+            using SimpleDPoint1DList = std::forward_list<SimpleDPoint1D>;
+            using SimpleDPoint1DListSharedPtr = std::shared_ptr<SimpleDPoint1DList>;
+
             virtual ~DatasetAbstract() = default;
 
             std::uint16_t Id() const noexcept;
@@ -19,6 +28,9 @@ namespace reader {
             const std::string& Name() const noexcept;
             const std::string& Desc() const noexcept;
             DatasetVersion Version() const noexcept;
+
+            virtual SimpleDPoint1DListSharedPtr SimplePowerData() = 0;
+            virtual std::string DataAnalysisReport() = 0;
 
         protected:
             DatasetAbstract(const std::string &filepath,

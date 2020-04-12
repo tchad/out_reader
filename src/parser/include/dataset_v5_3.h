@@ -45,6 +45,9 @@ namespace reader {
 
             bool ContainsRecordAtTime(std::uint32_t t) const noexcept;
 
+            virtual DatasetAbstract::SimpleDPoint1DListSharedPtr SimplePowerData() override;
+            virtual std::string DataAnalysisReport() override;
+
         protected:
             std::string hier_separation;
             std::string time_resolution;

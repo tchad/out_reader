@@ -13,5 +13,18 @@ namespace reader {
                   << ") desc(" << desc 
                   << "}\n";
     }
+
+    DatasetAbstract::SimpleDPoint1DListSharedPtr DatasetNull::SimplePowerData()
+    {
+        return DatasetAbstract::SimpleDPoint1DListSharedPtr(new DatasetAbstract::SimpleDPoint1DList());
+    }
+
+    std::string DatasetNull::DataAnalysisReport()
+    {
+        return "";
+    }
+
+
 }
+
 
