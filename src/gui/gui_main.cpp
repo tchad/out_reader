@@ -20,19 +20,6 @@ GuiMain::GuiMain(reader::Reader &reader, QObject *parent) :
     refreshModel();
 }
 
-GuiMain::~GuiMain()
-{
-    delete mMainWnd;
-
-    for (int i = 0; i < mPlotWindows.count(); i++) {
-        PlotWnd *wnd = mPlotWindows.at(i);
-        disconnect(wnd, nullptr, nullptr, nullptr);
-        wnd->close();
-    }
-
-    mPlotWindows.clear();
-}
-
 void GuiMain::show()
 {
     mMainWnd->show();
@@ -89,20 +76,6 @@ bool GuiMain::processId(const QString& id, std::uint16_t &num_id)
     return ok;
 }
 
-int GuiMain::getPlotWndIdxById(std::uint16_t id) const
-{
-    int ret  = -1;
-
-    for (int i = 0; i < mPlotWindows.count(); i++) {
-        if (mPlotWindows.at(i)->getId() == id) {
-            ret = i;
-            break;
-        }
-    }
-
-    return ret;
-}
-
 void GuiMain::setOpen(QString path, QString name, QString desc)
 {
     reader::ParserStatus status;
@@ -151,23 +124,12 @@ void GuiMain::setDelete(QString id)
 void GuiMain::plotWndOpen(std::uint16_t id)
 {
     //Skip if window already open
-    if (getPlotWndIdxById(id) < 0) {
+    if (!mPlotWindows.contains(id)) {
         reader::DatasetAbstractSharedPtr ptr = mReader.GetStorage().Get(id).lock();
         PlotWnd *wnd = new PlotWnd(ptr);
-        mPlotWindows.append(wnd);
-        connect(wnd, &PlotWnd::sigClose, this, &GuiMain::plotWndClose);
+        mPlotWindows += id;
+        connect(wnd, &PlotWnd::sigClose, [this](std::uint16_t id){ mPlotWindows -= id;});
         wnd->show();
-    }
-}
-
-void GuiMain::plotWndClose(std::uint16_t id)
-{
-    int idx = getPlotWndIdxById(id);
-    if (idx >= 0) {
-        PlotWnd *wnd = mPlotWindows.at(idx);
-        disconnect(wnd, nullptr, nullptr, nullptr);
-        wnd->close();
-        mPlotWindows.removeAt(idx);
     }
 }
 

@@ -22,6 +22,8 @@ class MainWindow : public QMainWindow
         explicit MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
 
+        virtual void closeEvent(QCloseEvent *event) override;
+
         void setDatasetList(const QStringList &lst);
 
     private:

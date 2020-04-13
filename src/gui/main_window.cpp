@@ -12,17 +12,27 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->listView->setModel(mDesignListModel);
 
-    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::appQuit);
+    connect(ui->actionQuit, &QAction::triggered, this, &MainWindow::close);
     connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::actionFileOpen);
     connect(ui->elementShowBtn, &QPushButton::clicked, [this](){
             emit setDisplay(ui->elementId->text());});
     connect(ui->elementDeleteBtn, &QPushButton::clicked, [this](){
             emit setDelete(ui->elementId->text());});
+
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) 
+{
+    emit appQuit();
+    QMainWindow::closeEvent(event);
+
+    return;
 }
 
 void MainWindow::setDatasetList(const QStringList &lst)

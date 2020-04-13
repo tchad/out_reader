@@ -18,6 +18,8 @@ class PlotWnd : public QMainWindow
         explicit PlotWnd(reader::DatasetAbstractSharedPtr dset, QWidget *parent = nullptr);
         ~PlotWnd();
 
+        virtual void closeEvent(QCloseEvent *event) override;
+
         std::uint16_t getId() const;
 
     signals:

@@ -17,7 +17,7 @@ PlotWnd::PlotWnd(reader::DatasetAbstractSharedPtr dset, QWidget *parent) :
     ui(new Ui::PlotWnd)
 {
     ui->setupUi(this);
-    connect(ui->actionClose, &QAction::triggered, this, [this](){ emit sigClose(getId()); });
+    connect(ui->actionClose, &QAction::triggered, this, &PlotWnd::close);
     connect(ui->actionExport, &QAction::triggered, this, [this](){ plotExport(); });
     connect(ui->actionDAR, &QAction::triggered, this, [this](){ printDARConsole(); });
     setAttribute(Qt::WA_DeleteOnClose);
@@ -28,6 +28,12 @@ PlotWnd::PlotWnd(reader::DatasetAbstractSharedPtr dset, QWidget *parent) :
 PlotWnd::~PlotWnd()
 {
     delete ui;
+}
+
+void PlotWnd::closeEvent(QCloseEvent *event) 
+{
+    emit sigClose(getId());
+    disconnect(this, nullptr, nullptr, nullptr);
 }
 
 std::uint16_t PlotWnd::getId() const

@@ -3,6 +3,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QtCore/QSet>
 
 #include <gui/include/main_window.h>
 #include <gui/include/plot_wnd.h>
@@ -14,25 +15,24 @@ class GuiMain : public QObject
 
     public:
         explicit GuiMain(reader::Reader &reader, QObject *parent = nullptr);
-        ~GuiMain();
+        virtual ~GuiMain() = default;
 
         void show();
 
     private:
         void refreshModel();
         bool processId(const QString& id, std::uint16_t &num_id);
-        int getPlotWndIdxById(std::uint16_t id) const;
 
         MainWindow *mMainWnd;
         reader::Reader &mReader;
-        QList<PlotWnd*> mPlotWindows;
+
+        QSet<std::uint16_t> mPlotWindows;
 
     private slots:
         void setOpen(QString path, QString name, QString desc);
         void setDisplay(QString id);
         void setDelete(QString id);
         void plotWndOpen(std::uint16_t id);
-        void plotWndClose(std::uint16_t id);
 };
 
 #endif
