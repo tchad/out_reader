@@ -62,6 +62,7 @@ void PlotWnd::setPlot()
     //pwrCurve->setStyle(QwtPlotCurve::CurveStyle::Dots);
     pwrCurve->setStyle(QwtPlotCurve::CurveStyle::Steps);
     pwrCurve->setPen( Qt::black, 0.5 );
+    pwrCurve->setCurveAttribute(QwtPlotCurve::CurveAttribute::Inverted, true);
     //pwrCurve->setRenderHint( QwtPlotItem::RenderAntialiased, true );
 
     QwtPlotGrid *grid = new QwtPlotGrid;
