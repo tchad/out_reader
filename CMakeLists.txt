@@ -36,11 +36,13 @@ add_executable(reader
 )
 
 add_library(qwt SHARED IMPORTED)
-add_compile_definitions(__READER_TEST_MODE__)
+#add_compile_definitions(__READER_TEST_MODE__)
+add_compile_definitions(__READER_PARSER_ENGINE_53_DISABLE_TIME_UNIQ_TEST__)
 #add_compile_definitions(__READER_PARSER_ENGINE_V5_3_DEBUG__)
 set_property(TARGET qwt PROPERTY IMPORTED_LOCATION $ENV{QWT_LIB}/libqwt.so)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -std=c++2a")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -ggdb -std=c++2a")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -std=c++2a")
 target_link_libraries(reader qwt Qt5::Widgets)
 target_include_directories(reader PUBLIC src $ENV{QWT_INC})
 

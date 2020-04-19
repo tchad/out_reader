@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <unordered_set>
 
 #include <parser/include/parser_engine_v5_3.h>
 
@@ -26,6 +27,7 @@ namespace reader {
 
         std::string line;
         std::smatch match;
+        std::unordered_set<std::uint32_t> hashtable;
         SegmentType segment_type;
 
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
@@ -97,11 +99,34 @@ namespace reader {
                     //Process
                     {
                         int tmp = std::atoi(match.str(1).c_str());
+                        static int g = 10000;
 
+                        if(tmp > g) {
+                            g += 100000;
+                            std::clog << "At timepoint: " << tmp << std::endl;
+                        }
+
+                        //This part kills the performance the longer the array gets
+                        //Impractical for large data sets
+                        //assume generated file has unique timestamps
+                        /*
                         if (tmp < 0 || dset->ContainsRecordAtTime(tmp)) {
                             return ParserStatus::ERR_WRONG_FILE_CONTENT;
                         }
+                        */
+                        //Using hashmap instead
+#ifndef __READER_PARSER_ENGINE_53_DISABLE_TIME_UNIQ_TEST__
 
+                        if (tmp < 0 || hashtable.contains(std::uint32_t(tmp))) {
+                            return ParserStatus::ERR_WRONG_FILE_CONTENT;
+                        }
+
+                        hashtable.insert(std::uint32_t(tmp));
+#else
+                        if (tmp < 0) {
+                            return ParserStatus::ERR_WRONG_FILE_CONTENT;
+                        }
+#endif
                         record_tmp.t = std::uint32_t(tmp);
                     }
                     break;
