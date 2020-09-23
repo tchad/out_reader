@@ -51,24 +51,22 @@ void GuiMain::refreshModel()
     mMainWnd->setDatasetList(lst);
 }
 
-bool GuiMain::processId(const QString& id, std::uint16_t &num_id)
+bool GuiMain::processId(const QString &id, std::uint16_t &num_id)
 {
     bool ok = false;
     std::uint16_t num;
 
-    num = id.toUInt(&ok);
+    num = id.toUShort(&ok);
 
     if (ok && num > 0) {
         if (mReader.GetStorage().Contains(num)) {
             num_id = num;
             ok = true;
-        }
-        else {
+        } else {
             QMessageBox::critical(mMainWnd, "Error", "Id does not exist in the storage.");
             ok = false;
         }
-    }
-    else {
+    } else {
         QMessageBox::critical(mMainWnd, "Error", "Id must be integer dreater or equal to 1.");
         ok = false;
     }
@@ -76,7 +74,7 @@ bool GuiMain::processId(const QString& id, std::uint16_t &num_id)
     return ok;
 }
 
-void GuiMain::setOpen(QString path, QString name, QString desc)
+void GuiMain::setOpen(const QString &path, const QString &name, const QString &desc)
 {
     reader::ParserStatus status;
     status = mReader.LoadFile(path.toStdString(), name.toStdString(), desc.toStdString());
@@ -102,7 +100,7 @@ void GuiMain::setOpen(QString path, QString name, QString desc)
     refreshModel();
 }
 
-void GuiMain::setDisplay(QString id)
+void GuiMain::setDisplay(const QString &id)
 {
     std::uint16_t num_id;
     if (processId(id, num_id)) {
@@ -110,7 +108,7 @@ void GuiMain::setDisplay(QString id)
     }
 }
 
-void GuiMain::setDelete(QString id)
+void GuiMain::setDelete(const QString &id)
 {
     std::uint16_t num_id;
     if (processId(id, num_id)) {

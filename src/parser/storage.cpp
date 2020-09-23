@@ -55,12 +55,10 @@ namespace reader {
 
         if (db.empty()) {
             ret = false;
-        }
-        else if ((*db.cbegin())->Id() == id) {
+        } else if ((*db.cbegin())->Id() == id) {
             db.pop_front();
             ret =  true;
-        }
-        else {
+        } else {
             ret = false;
 
             auto next = db.cbegin();
@@ -72,8 +70,7 @@ namespace reader {
                     ret = true;
                     break;
 
-                }
-                else {
+                } else {
                     current = next++;
                 }
             }

@@ -47,8 +47,7 @@ namespace reader {
                 case TIME_RESOLUTION:
                     if (!stage1 || time_resolution_read) {
                         return ParserStatus::ERR_WRONG_FILE_CONTENT;
-                    }
-                    else {
+                    } else {
                         time_resolution_read = true;
                         dset->time_resolution = match.str(1);
                     }
@@ -56,8 +55,7 @@ namespace reader {
                 case HIER_SEPARATION:
                     if (!stage1 || hier_separator_read) {
                         return ParserStatus::ERR_WRONG_FILE_CONTENT;
-                    }
-                    else {
+                    } else {
                         hier_separator_read = true;
                         dset->hier_separation = match.str(1);
                     }
@@ -65,8 +63,7 @@ namespace reader {
                 case INDEX:
                     if (!stage1) {
                         return ParserStatus::ERR_WRONG_FILE_CONTENT;
-                    }
-                    else {
+                    } else {
                         //check for duplicates
                         int tmp = std::atoi(match.str(2).c_str());
 
@@ -80,16 +77,16 @@ namespace reader {
                             return ParserStatus::ERR_WRONG_FILE_CONTENT;
                         }
 
-                        DatasetV53::Index index = {DatasetV53::IdxId(tmp), match.str(1), match.str(3)};
-                        dset->index_map[tmp] = index;
+                        //DatasetV53::Index index{DatasetV53::IdxId(tmp), match.str(1), match.str(3)};
+                        //dset->index_map[tmp] = index;
+                        dset->index_map[tmp] = DatasetV53::Index{DatasetV53::IdxId(tmp), match.str(1), match.str(3)};
                     }
                     break;
                 case VAR_INDEPENDENT:
                     if (!stage1) {
                         //Save record if already in stage 2 which means there is valid data present
                         dset->data.push_back(record_tmp);
-                    }
-                    else {
+                    } else {
                         //transition to stage 2
                         stage1 = false;
                     }
@@ -133,8 +130,7 @@ namespace reader {
                 case VAR_INDEXED:
                     if (stage1) {
                         return ParserStatus::ERR_WRONG_FILE_CONTENT;
-                    }
-                    else {
+                    } else {
                         int tmp = std::atoi(match.str(1).c_str());
                         /*
                          * Fail if:
@@ -187,26 +183,22 @@ namespace reader {
 #endif
             return SegmentType::VERSION;
 
-        }
-        else if (std::regex_match(line, match, REGEX_COMMENT)) {
+        } else if (std::regex_match(line, match, REGEX_COMMENT)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tfound comment " << std::endl;
 #endif
             return SegmentType::COMMENT;
-        }
-        else if (std::regex_match(line, match, REGEX_TIME_RESOLUTION)) {
+        } else if (std::regex_match(line, match, REGEX_TIME_RESOLUTION)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tfound time_resolution: " << match.str(1) << std::endl;
 #endif
             return SegmentType::TIME_RESOLUTION;
-        }
-        else if (std::regex_match(line, match, REGEX_HIER_SEPARATOR)) {
+        } else if (std::regex_match(line, match, REGEX_HIER_SEPARATOR)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tfound hier_separator: " << match.str(1) << std::endl;
 #endif
             return SegmentType::HIER_SEPARATION;
-        }
-        else if (std::regex_match(line, match, REGEX_INDEX)) {
+        } else if (std::regex_match(line, match, REGEX_INDEX)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tfound index: " 
                 << " Name: " << match.str(1)
@@ -214,8 +206,7 @@ namespace reader {
                 << " Unit: " << match.str(3) << std::endl;
 #endif
             return SegmentType::INDEX;
-        }
-        else if (std::regex_match(line, match, REGEX_VAR_INDEPENDENT)) {
+        } else if (std::regex_match(line, match, REGEX_VAR_INDEPENDENT)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             static bool once = false;
             if(!once) {
@@ -224,8 +215,7 @@ namespace reader {
             }
 #endif
             return SegmentType::VAR_INDEPENDENT;
-        }
-        else if (std::regex_match(line, match, REGEX_VAR_INDEXED)) {
+        } else if (std::regex_match(line, match, REGEX_VAR_INDEXED)) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             static int cnt = 0;
             if(cnt < 5 ) {
@@ -236,14 +226,12 @@ namespace reader {
             }
 #endif
             return SegmentType::VAR_INDEXED;
-        }
-        else if (line.empty()) {
+        } else if (line.empty()) {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tfound empty line\n";
 #endif
             return SegmentType::EMPTY;
-        }
-        else {
+        } else {
 #ifdef __READER_PARSER_ENGINE_V5_3_DEBUG__
             std::clog << "\tunknown line: (" << line << ")\n";
 #endif

@@ -82,8 +82,7 @@ namespace reader {
         if (data.size() <= 2) {
             //impractical case cannot compute range
             sum = 0;
-        }
-        else {
+        } else {
             //Note:
             //std::list<Record>::iterator next = data.begin();
             //std::list<Record>::iterator current = next;

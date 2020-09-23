@@ -29,9 +29,9 @@ class GuiMain : public QObject
         QSet<std::uint16_t> mPlotWindows;
 
     private slots:
-        void setOpen(QString path, QString name, QString desc);
-        void setDisplay(QString id);
-        void setDelete(QString id);
+        void setOpen(const QString &path, const QString &name, const QString &desc);
+        void setDisplay(const QString &id);
+        void setDelete(const QString &id);
         void plotWndOpen(std::uint16_t id);
 };
 

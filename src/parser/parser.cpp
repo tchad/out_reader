@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <regex>
+#include <stdexcept>
 
 #include <parser/include/parser.h>
 #include <parser/include/dataset_null.h>
@@ -45,25 +46,25 @@ namespace reader {
                     if(status != ParserStatus::SUCCESS) {
                         delete ptr;
                         return nullptr;
-                    }
-                    else {
+                    } else {
                         return ptr;
                     }
-                }
-                else {
+                } else {
                     status = ParserStatus::ERR_UNSUPPORTED_VERSION;
                     return nullptr;
                 }
-            }
-            else {
+            } else {
                 status = ParserStatus::ERR_WRONG_FILE_CONTENT;
                 return nullptr;
             }
-        }
-        else {
+        } else {
             status = ParserStatus::ERR_FILE_MISSING;
             return nullptr;
         }
+
+        //throw std::runtime_error("Incorrect Parser::Load");
+        status = ParserStatus::ERR_UNKNOWN;
+        return nullptr;
     }
 }
 

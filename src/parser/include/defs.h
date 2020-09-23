@@ -3,13 +3,13 @@
 
 
 namespace reader {
-    enum DatasetVersion {
+    enum class DatasetVersion {
         UNDEFINED,
         NULL_SET,
         VER5_3
     };
 
-    enum ParserStatus {
+    enum class ParserStatus {
         SUCCESS,
         ERR_FILE_MISSING,
         ERR_UNSUPPORTED_VERSION,

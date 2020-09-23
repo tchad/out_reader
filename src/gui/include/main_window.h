@@ -33,9 +33,9 @@ class MainWindow : public QMainWindow
 
     signals:
         void appQuit();
-        void setOpen(QString path, QString name, QString desc);
-        void setDisplay(QString id);
-        void setDelete(QString id);
+        void setOpen(const QString &path, const QString &name, const QString &desc);
+        void setDisplay(const QString &id);
+        void setDelete(const QString &id);
 
     private slots:
         void actionFileOpen();
